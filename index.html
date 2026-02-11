@@ -25,7 +25,7 @@
 
         .container {
             text-align: center;
-            padding: 35px 25px;
+            padding: 30px 20px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 24px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -33,6 +33,8 @@
             max-width: 400px;
             position: relative;
             z-index: 10;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .screen {
@@ -49,9 +51,58 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Photo styles */
+        .photo {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            margin: 15px auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .photo-small {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #e75480;
+        }
+
+        .photo-frame {
+            position: relative;
+            display: inline-block;
+        }
+
+        .photo-frame::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 3px solid #e75480;
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
         /* Screen 1: Envelope */
+        .envelope-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e75480;
+            margin-bottom: 20px;
+            animation: pulse-photo 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-photo {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 84, 128, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px 10px rgba(231, 84, 128, 0.2); }
+        }
+
         .envelope {
-            font-size: 100px;
+            font-size: 80px;
             cursor: pointer;
             transition: transform 0.3s ease;
             animation: wiggle 1s ease-in-out infinite;
@@ -69,7 +120,7 @@
         .tap-text {
             color: #e75480;
             font-size: 1.1rem;
-            margin-top: 20px;
+            margin-top: 15px;
             animation: pulse-text 1.5s ease-in-out infinite;
         }
 
@@ -79,11 +130,18 @@
         }
 
         /* Screen 2: Letter */
+        .letter-photo {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+
         .letter-content {
             text-align: left;
             line-height: 1.8;
             color: #444;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .letter-content .greeting {
@@ -94,18 +152,18 @@
         }
 
         .letter-content p {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .letter-content .signature {
             text-align: right;
             font-style: italic;
             color: #e75480;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .continue-btn {
-            margin-top: 25px;
+            margin-top: 20px;
             padding: 14px 35px;
             font-size: 1.1rem;
             background: linear-gradient(135deg, #e75480, #ff6b6b);
@@ -123,19 +181,42 @@
             transform: scale(1.05);
         }
 
-        /* Screen 3: Reasons */
+        /* Screen 3: Reasons with slideshow */
         .reasons-title {
             color: #e75480;
             font-size: 1.3rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        .slideshow {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #e75480;
+        }
+
+        .slideshow img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .slideshow img.active {
+            opacity: 1;
         }
 
         .reason {
             background: linear-gradient(135deg, #fff5f7, #ffe0e6);
-            padding: 12px 18px;
-            border-radius: 15px;
-            margin: 12px 0;
-            font-size: 1rem;
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            font-size: 0.95rem;
             color: #555;
             opacity: 0;
             transform: translateX(-20px);
@@ -151,8 +232,17 @@
         }
 
         /* Screen 4: Question */
+        .question-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e75480;
+            margin-bottom: 15px;
+        }
+
         .heart-icon {
-            font-size: 70px;
+            font-size: 50px;
             animation: heartbeat 1s ease-in-out infinite;
         }
 
@@ -165,14 +255,14 @@
 
         .question-title {
             color: #e75480;
-            font-size: 1.5rem;
-            margin: 20px 0;
+            font-size: 1.4rem;
+            margin: 15px 0;
             line-height: 1.4;
         }
 
         .name-highlight {
             display: block;
-            font-size: 2rem;
+            font-size: 1.8rem;
             background: linear-gradient(135deg, #e75480, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -183,13 +273,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 12px;
+            margin-top: 20px;
         }
 
         button {
-            padding: 16px 50px;
-            font-size: 1.2rem;
+            padding: 14px 45px;
+            font-size: 1.1rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -197,7 +287,7 @@
             font-family: inherit;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
-            min-width: 160px;
+            min-width: 150px;
         }
 
         .yes-btn {
@@ -218,30 +308,38 @@
         }
 
         /* Screen 5: Success */
+        .success-photo {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 16px;
+            margin: 15px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
         .success-heart {
-            font-size: 90px;
+            font-size: 60px;
             animation: heartbeat 1s ease-in-out infinite;
         }
 
         .success-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #e75480;
-            margin: 15px 0;
+            margin: 10px 0;
         }
 
         .success-text {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #666;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .date-text {
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 15px;
+            padding: 12px;
             background: linear-gradient(135deg, #fff5f7, #ffe0e6);
-            border-radius: 15px;
+            border-radius: 12px;
             color: #e75480;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         /* Floating hearts */
@@ -316,10 +414,12 @@
         }
 
         @media (max-width: 360px) {
-            .container { padding: 25px 20px; }
-            .question-title { font-size: 1.3rem; }
-            .name-highlight { font-size: 1.7rem; }
-            button { padding: 14px 40px; font-size: 1.1rem; }
+            .container { padding: 20px 15px; }
+            .question-title { font-size: 1.2rem; }
+            .name-highlight { font-size: 1.5rem; }
+            button { padding: 12px 35px; font-size: 1rem; }
+            .envelope-photo, .question-photo { width: 160px; height: 160px; }
+            .slideshow { width: 160px; height: 160px; }
         }
     </style>
 </head>
@@ -331,12 +431,14 @@
     <div class="container">
         <!-- Screen 1: Envelope -->
         <div class="screen active" id="screen1">
+            <img src="4image.jpg" alt="Us" class="envelope-photo">
             <div class="envelope" onclick="nextScreen(2)">💌</div>
             <p class="tap-text">Tap to open</p>
         </div>
 
         <!-- Screen 2: Letter -->
         <div class="screen" id="screen2">
+            <img src="1image.jpg" alt="Us" class="letter-photo">
             <div class="letter-content">
                 <p class="greeting">Dear Seyi,</p>
                 <p>The moments I spend with you feels surreal at times. Your smile lights up my world, and your laugh is probably one of my top favorite sounds to hear.</p>
@@ -346,8 +448,15 @@
             <button class="continue-btn" onclick="nextScreen(3)">Continue</button>
         </div>
 
-        <!-- Screen 3: Reasons -->
+        <!-- Screen 3: Reasons with slideshow -->
         <div class="screen" id="screen3">
+            <div class="slideshow" id="slideshow">
+                <img src="7image.jpg" alt="Seyi" class="active">
+                <img src="6.jpg" alt="Seyi">
+                <img src="8image.jpg" alt="Seyi">
+                <img src="image.jpg" alt="Seyi">
+                <img src="3image.jpg" alt="Seyi">
+            </div>
             <p class="reasons-title">Reasons I adore you:</p>
             <div class="reason" id="reason1">Your beautiful smile</div>
             <div class="reason" id="reason2">The way you make me laugh</div>
@@ -359,6 +468,7 @@
 
         <!-- Screen 4: Question -->
         <div class="screen" id="screen4">
+            <img src="9image.jpg" alt="Us" class="question-photo">
             <div class="heart-icon">💕</div>
             <h1 class="question-title">
                 <span class="name-highlight">Seyi,</span>
@@ -374,6 +484,7 @@
         <div class="screen" id="screen5">
             <div class="success-heart">💖</div>
             <h1 class="success-title">You just made me the happiest!</h1>
+            <img src="5image.jpg" alt="Celebration" class="success-photo">
             <p class="success-text">I can't wait to spend Valentine's Day with you, Seyi!</p>
             <div class="date-text">February 14th is going to be special</div>
         </div>
@@ -398,7 +509,7 @@
             const container = document.getElementById('floatingHearts');
             const hearts = ['💕', '💗', '💖', '💘', '❤️', '💝'];
             const isMobile = window.innerWidth < 768;
-            const heartCount = isMobile ? 10 : 15;
+            const heartCount = isMobile ? 8 : 12;
 
             for (let i = 0; i < heartCount; i++) {
                 const heart = document.createElement('div');
@@ -412,13 +523,35 @@
             }
         }
 
+        // Slideshow
+        let slideshowInterval;
+        function startSlideshow() {
+            const images = document.querySelectorAll('#slideshow img');
+            let current = 0;
+
+            slideshowInterval = setInterval(() => {
+                images[current].classList.remove('active');
+                current = (current + 1) % images.length;
+                images[current].classList.add('active');
+            }, 2000);
+        }
+
+        function stopSlideshow() {
+            if (slideshowInterval) {
+                clearInterval(slideshowInterval);
+            }
+        }
+
         // Navigate between screens
         function nextScreen(num) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen' + num).classList.add('active');
 
             if (num === 3) {
+                startSlideshow();
                 showReasons();
+            } else {
+                stopSlideshow();
             }
         }
 
